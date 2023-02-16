@@ -2264,7 +2264,7 @@ const getSections = (queue,callback,getArr = [],sections = {}) => {
 	{section:"repeating_drag",fields:['drag_Deg','drag_DegMod','drag_PdV',]}
   ];
   
-  on("sheet:opened change:nvgroupe", function () {
+  on("change:nvgroupe", function () {
 	// clone the repeatingSections array so that we don't mutate the base array each time this runs
 	const sectionQueue = [...repeatingSections];
 	// Convert the getSectionIDs to a burn down or queue pattern
