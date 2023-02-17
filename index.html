@@ -2293,11 +2293,11 @@ const getSections = (queue,callback,getArr = [],sections = {}) => {
 				  // create our deg total attribute
 				  const coeff = 1.15;
   
-				  let degTotal = ((deg * 10) + degMod) * (coeff ^ (niveau - 1));
+				  let degTotal = ((deg * 10) + degMod) * (coeff ** (niveau - 1));
   
 				  setObj[`${row}_Deg`] = Math.floor(degTotal / 10);
 				  setObj[`${row}_DegMod`] = degTotal % 10;
-				  setObj[`${row}_Pdv`] = pdv * (coeff ^ (niveau - 1));
+				  setObj[`${row}_Pdv`] = pdv * (coeff ** (niveau - 1));
 				}
 			  })
 			})
