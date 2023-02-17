@@ -625,6 +625,7 @@
 		<!--Début Caractéristiques-->
 		<div class="char">
 			<div class="char"><span style="margin-left: 15px;">Gain XP : </span><input class="textbox-stat" type="number" value="0" name="attr_GainXP"/></div><br>
+			<div class="char"><span style="margin-left: 15px;">Niveau : </span><input class="textbox-stat" type="number" value="0" name="attr_LvlPNJ"/></div><br>
 		</div>
 		<div class="sheet-wrapper1">
 			<div class="title" style="font-effect:engrave">Caractéristiques</div><br>
@@ -1438,7 +1439,7 @@
 	};
 
 	//Calcul poids porté
-	on('sheet:opened', function() {
+	on('change:repeating_inventory change:repeating_weapons change:repeating_rangedweapons change:repeating_munitions change:repeating_armor', function() {
 		repeatingSum("PdsPorteEqp","inventory",["EqpPds","EqpQte","WearEqp"]);
 		repeatingSum("PdsPorteWeap","weapons",["ArmePds","WearWeap"]);
 		repeatingSum("PdsPorteRangWeap", "rangedweapons",["RangedWeaponPds","WearRgdWeap"]);
@@ -1490,7 +1491,7 @@
 	//Fin calcul poids porté
 
 	//Calcul niveau
-	on("sheet:opened change:NbXp", function() {
+	on("change:NbXp", function() {
 		getAttrs(["NbXp"], function(values) {
 			var xp = parseInt(values.NbXp) || 0;
 			let level = 0;
@@ -1544,7 +1545,7 @@
 	//Fin calcul niveau
 
 	//Calcul vie
-	on("sheet:opened change:PdvActuel", function(){
+	on("change:PdvActuel", function(){
 		getAttrs(["PdvTotal", "PdvActuel"], function(values){
 			var pdvActuel = parseInt(values.PdvActuel);
 			var pdvTotal = parseInt(values.PdvTotal);
@@ -1597,7 +1598,7 @@
 		});
 	});
 
-    on("sheet:opened change:Sante", function(){
+    on("change:Sante", function(){
 		getAttrs(["Sante"], function(values){
 			var sante = parseInt(values.Sante);
 			var effet = '';
@@ -1678,7 +1679,7 @@
 	//Fin calcul vie
 
 	//Carac races
-	on("sheet:opened change:Race change:Classe", function() {
+	on("change:Race change:Classe", function() {
 		getAttrs(["Race", "Classe"], function(values) {
 			var classe = parseInt(values.Classe);
 			var race = parseInt(values.Race);
@@ -1687,7 +1688,6 @@
 			var carac2 = '';
 			let bonus2 = 0;
 			var langageNatif = '';
-			let resistancePhys = 0;
 			var resistanceElem = '';
 			var faiblesseElem = '';
 
@@ -1697,7 +1697,6 @@
 				carac2 = "Sens ordinaires (PE)";
 				bonus2 = -5;
 				langageNatif = "Commun";
-				resistancePhys = 2;
 				resistanceElem = "Feu";
 				faiblesseElem = "Eau";
 			} else if (race === 2) { //Nain
@@ -1706,7 +1705,6 @@
 				carac2 = "Brute épaisse (DEX)";
 				bonus2 = -5;
 				langageNatif = "Dwarv";
-				resistancePhys = 3;
 				resistanceElem = "Terre";
 				faiblesseElem = "Eau";
 			} else if (race === 3) { //Elfe
@@ -1715,7 +1713,6 @@
 				carac2 = "Malingre (FO)";
 				bonus2 = -5;
 				langageNatif = "Elfique";
-				resistancePhys = 1;
 				resistanceElem = "Céleste";
 				faiblesseElem = "Draconique";
 			} else if (race === 4) { //Demi-elfe
@@ -1724,7 +1721,6 @@
 				carac2 = "Demi-portion (FO)";
 				bonus2 = -5;
 				langageNatif = "Achko";
-				resistancePhys = 1;
 				resistanceElem = "Foudre";
 				faiblesseElem = "Terre";
 			} else if (race === 5) { //Saurien
@@ -1733,7 +1729,6 @@
 				carac2 = "Vie sauvage (ED)";
 				bonus2 = -5;
 				langageNatif = "Ghry'ls";
-				resistancePhys = 5;
 				resistanceElem = "Eau";
 				faiblesseElem = "Glace";
 			} else if (race === 6) { //Demi-ork
@@ -1742,7 +1737,6 @@
 				carac2 = "Peau verte (CH)";
 				bonus2 = -5;
 				langageNatif = "Orkal";
-				resistancePhys = 4;
 				resistanceElem = "Vent";
 				faiblesseElem = "Combat";
 			} else if (race === 7) { // Felika
@@ -1751,7 +1745,6 @@
 				carac2 = "Peur primaire (SF)";
 				bonus2 = -5;
 				langageNatif = "Graowl";
-				resistancePhys = 4;
 				resistanceElem = "Combat";
 				faiblesseElem = "Renforcement";
 			} else if (race === 8) { //Vampire
@@ -1760,7 +1753,6 @@
 				carac2 = "Regard affamé (CH)";
 				bonus2 = -5;
 				langageNatif = "Commun";
-				resistancePhys = 3;
 				resistanceElem = "Esprit";
 				faiblesseElem = "Sacré";
 			} else if (race === 9) { //Lycan
@@ -1769,7 +1761,6 @@
 				carac2 = "Berserk (SF)";
 				bonus2 = -5;
 				langageNatif = "Commun";
-				resistancePhys = 4;
 				resistanceElem = "Nature";
 				faiblesseElem = "Démoniaque";
 			} else if (race === 10) { //Succube
@@ -1778,7 +1769,6 @@
 				carac2 = "Colérique (SF)";
 				bonus2 = -5;
 				langageNatif = "Infernoss";
-				resistancePhys = 4;
 				resistanceElem = "Contrôle mental";
 				faiblesseElem = "Lumière";
 			} else if (race === 11) { //Animorphe
@@ -1787,7 +1777,6 @@
 				carac2 = "Aspect animal (CH)";
 				bonus2 = -5;
 				langageNatif = "Commun";
-				resistancePhys = 3;
 				resistanceElem = "Nature";
 				faiblesseElem = "Démoniaque";
 			} else {
@@ -1796,7 +1785,6 @@
 				carac2 = "Choisir une race";
 				bonus2 = 0;
 				langageNatif = "Choisir une race";
-				resistancePhys = 0;
 				resistanceElem = "Choisir une race";
 				faiblesseElem = "Choisir une race";
 			}
@@ -1814,7 +1802,7 @@
 	});
 
 	//Points de vie race et classe
-	on("sheet: opened change:Race change:Classe change:PlayerLvl", function(){
+	on("change:Race change:Classe change:PlayerLvl", function(){
 		getAttrs(["Race", "Classe", "PlayerLvl"], function(values){
 			var race = parseInt(values.Race) || 0;
 			var classe = parseInt(values.Classe) || 0;
@@ -1889,7 +1877,7 @@
 	});
 
 	//Calcul vie PNJ
-	on("sheet:opened change:PnjPdvActuel", function(){
+	on("change:PnjPdvActuel", function(){
 		getAttrs(["PnjPdvTotal", "PnjPdvActuel"], function(values){
 			var pdvActuel = parseInt(values.PnjPdvActuel);
 			var pdvTotal = parseInt(values.PnjPdvTotal);
@@ -1942,7 +1930,7 @@
 		});
 	});
 
-    on("sheet:opened change:PnjSante", function(){
+    on("change:PnjSante", function(){
 		getAttrs(["PnjSante"], function(values){
 			var sante = parseInt(values.PnjSante);
 			var effet = '';
@@ -2023,86 +2011,131 @@
 	//Fin calcul vie PNJ
 
 	//Carac races PNJ
-	on("sheet:opened change:RacePNJ change:ClassePNJ", function() {
+	on("change:RacePNJ change:ClassePNJ", function() {
 		getAttrs(["RacePNJ", "ClassePNJ"], function(values) {
 			var classePNJ = parseInt(values.ClassePNJ);
 			var racePNJ = parseInt(values.RacePNJ);
-			let resistancePhysPNJ = 0;
 			var resistanceElemPNJ = '';
 			var faiblesseElemPNJ = '';
 
 			if (racePNJ === 1) { //Humain
-				resistancePhysPNJ = 2;
 				resistanceElemPNJ = "Feu";
 				faiblesseElemPNJ = "Eau";
 			} else if (racePNJ === 2) { //Nain
-				resistancePhysPNJ = 3;
 				resistanceElemPNJ = "Terre";
 				faiblesseElemPNJ = "Eau";
 			} else if (racePNJ === 3) { //Elfe
-				resistancePhysPNJ = 1;
 				resistanceElemPNJ = "Céleste";
 				faiblesseElemPNJ = "Draconique";
 			} else if (racePNJ === 4) { //Demi-elfe
-				resistancePhysPNJ = 1;
 				resistanceElemPNJ = "Foudre";
 				faiblesseElemPNJ = "Terre";
 			} else if (racePNJ === 5) { //Saurien
-				resistancePhysPNJ = 5;
 				resistanceElemPNJ = "Eau";
 				faiblesseElemPNJ = "Glace";
 			} else if (racePNJ === 6) { //Demi-ork
-				resistancePhysPNJ = 4;
 				resistanceElemPNJ = "Vent";
 				faiblesseElemPNJ = "Combat";
 			} else if (racePNJ === 7) { // Felika
-				resistancePhysPNJ = 4;
 				resistanceElemPNJ = "Combat";
 				faiblesseElemPNJ = "Renforcement";
 			} else if (racePNJ === 8) { //Vampire
-				resistancePhysPNJ = 3;
 				resistanceElemPNJ = "Esprit";
 				faiblesseElemPNJ = "Illusion";
 			} else if (racePNJ === 9) { //Lycan
-				resistancePhysPNJ = 4;
 				resistanceElemPNJ = "Nature";
 				faiblesseElemPNJ = "Démoniaque";
 			} else if (racePNJ === 10) { //Succube
-				resistancePhysPNJ = 4;
 				resistanceElemPNJ = "Contrôle mental";
 				faiblesseElemPNJ = "Lumière";
 			} else if (racePNJ === 11) { //Animorphe
-				resistancePhysv = 3;
 				resistanceElemPNJ = "Nature";
 				faiblesseElemPNJ = "Démoniaque";
 			} else {
-				resistancePhysPNJ = 0;
 				resistanceElemPNJ = "Choisir une race";
 				faiblesseElemPNJ = "Choisir une race";
 			}
 
-			if (classePNJ === 1) {
-				resistancePhysPNJ += 2;
-			} else if (classePNJ === 2) {
-				resistancePhysPNJ += 5;
-			} else if (classePNJ === 4) {
-				resistancePhysPNJ += 5;
-			} else if (classePNJ === 5) {
-				resistancePhysPNJ += 5;
-			} else if (classePNJ === 8) {
-				resistancePhysPNJ += 2;
-			} else if (classePNJ === 9) {
-				resistancePhysPNJ += 2;
-			} else if (classePNJ === 10) {
-				resistancePhysPNJ += 5;
-			}
-
 			setAttrs({ 
-				ResistancePhysPNJ: resistancePhysPNJ,
 				ResistanceElemPNJ: resistanceElemPNJ,
 				FaiblesseElemPNJ: faiblesseElemPNJ
 			});
 	  	});
+	});
+
+	//PdV race clase PNJ
+	on("change:RacePNJ change:ClassePNJ change:LvlPNJ", function(){
+		getAttrs(["RacePNJ", "ClassePNJ", "LvlPNJ"], function(values){
+			var race = parseInt(values.RacePNJ) || 0;
+			var classe = parseInt(values.ClassePNJ) || 0;
+			var niveau = parseInt(values.LvlPNJ) || 0;
+			var pdvRace = 0;
+			var pdvClasse = 0;
+			var pdvBase = 0;
+			var pdvMod =0;
+
+			if (race === 1) { //Humain
+				pdvRace = 60;
+			} else if (race === 2) { //Nain
+				pdvRace = 65;
+			} else if (race === 3) { //Elfe
+				pdvRace = 55;
+			} else if (race === 4) { //Demi-elfe
+				pdvRace = 55;
+			} else if (race === 5) { //Saurien
+				pdvRace = 75;
+			} else if (race === 6) { //Demi-ork
+				pdvRace = 70;
+			} else if (race === 7) { // Felika
+				pdvRace = 70;
+			} else if (race === 8) { //Vampire
+				pdvRace = 65;
+			} else if (race === 9) { //Lycan
+				pdvRace = 70;
+			} else if (race === 10) { //Succube
+				pdvRace = 70;
+			} else if (race === 11) { //Animorphe
+				pdvRace = 65;
+			} else {
+				pdvRace = 0;
+			}
+
+			if (classe === 1) { //Aventurier
+				pdvClasse = 2;
+			} else if (classe === 2) { //Barbare
+				pdvClasse = 5;
+			} else if (classe === 3) { //Marchand
+				pdvClasse = 0;
+			} else if (classe === 4) { //Chevalier
+				pdvClasse = 5;
+			} else if (classe === 5) { //Sentinelle
+				pdvClasse = 5;
+			} else if (classe === 6) { //Druide
+				pdvClasse = 0;
+			} else if (classe === 7) { //Devot
+				pdvClasse = 0;
+			} else if (classe === 8) { //Mage
+				pdvClasse = 2;
+			} else if (classe === 9) { //Roublard
+				pdvClasse = 2;
+			} else if (classe === 10) { //Spadassin
+				pdvClasse = 5;
+			} else {
+				pdvClasse = 0;
+			}
+
+			pdvBase = pdvRace + pdvClasse;
+
+			if (niveau >= 2) {
+				pdvMod = Math.round(pdvBase * (1.15 ** (niveau - 1)));
+			} else {
+				pdvMod = pdvBase;
+			}
+
+			setAttrs({
+				PnjPdvTotal: pdvMod
+			});
+		});
 	});
 
 	//Bestiaire
