@@ -9,23 +9,21 @@
 .charsheet .sheet-resume,
 .charsheet .sheet-principal,
 .charsheet .sheet-equipement,
-.charsheet .sheet-grimoire,
-.charsheet .sheet-necromancie {
+.charsheet .sheet-grimoire{
     display: none;
 }
 
 .charsheet .sheet-tabstoggle[value="resume"] ~ div.sheet-resume,
 .charsheet .sheet-tabstoggle[value="principal"] ~ div.sheet-principal,
 .charsheet .sheet-tabstoggle[value="equipement"] ~ div.sheet-equipement,
-.charsheet .sheet-tabstoggle[value="grimoire"] ~ div.sheet-grimoire,
-.charsheet .sheet-tabstoggle[value="necromancie"] ~ div.sheet-necromancie {
+.charsheet .sheet-tabstoggle[value="grimoire"] ~ div.sheet-grimoire {
     display: block;
 }
 
 /*Feuille PNJ*/
 .charsheet .sheet-PNJ_principal,
 .charsheet .sheet-PNJ_equipement,
-.charsheet .sheet-PNJ_grimoire {
+.charsheet .sheet-PNJ_grimoire{
     display: none;
 }
 
